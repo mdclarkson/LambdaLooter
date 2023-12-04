@@ -16,6 +16,7 @@ import gc
 import pathlib
 
 from signatures.constants.constants import FILE_TYPES
+from security import safe_command
 
 PROG_NAME = "LamdaLooter"
 PROG_VER = 0.1
@@ -355,7 +356,7 @@ def downloadFunctions(profile, line, region):
 	print("Downloading code for: " + strFunction)
 	cmd = "aws lambda get-function --region " + region + " --function-name " + strFunction + " --query 'Code.Location' | xargs wget -O ./loot/" + profile + "/" + strFunction + ".zip 2> /dev/null"
 	#print(cmd)
-	call(cmd,shell=True,stdin=None)
+	safe_command.call(call, cmd,shell=True,stdin=None)
 	
 	print("Checking Environment Variables for " + strFunction)
 
