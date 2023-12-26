@@ -103,8 +103,7 @@ def startProfileList(profileList, region, threads, deldownloads):
 		raise SystemExit(-1)
 	with open(profileList, "r") as pf:
 		for myline in pf: 
-			myline = myline.rstrip('\n')
-			if myline != "": 
+			if (myline := myline.rstrip('\n')) != "": 
 				awsProfileSetup(myline, region, threads, deldownloads)
 
 def awsProfileSetup(profile, region, threads, deldownloads):
