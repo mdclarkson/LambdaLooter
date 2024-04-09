@@ -120,7 +120,7 @@ def awsProfileSetup(profile, region, threads, deldownloads):
 	#cmd = f'export AWS_PROFILE=' + myline
 	#print(cmd)
 	os.environ["AWS_PROFILE"] = profile
-	cmd = f'echo $AWS_PROFILE'
+	cmd = 'echo $AWS_PROFILE'
 	#print(cmd)
 	os.system(cmd)
 	print("Creating directory to store functions")
