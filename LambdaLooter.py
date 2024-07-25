@@ -317,7 +317,7 @@ def downloadLambdas(profile, region, threads):
 	profile: the AWS profile lambdas are downloaded from
 	"""
 	cmd="aws lambda list-functions --region " + region + " | jq \'.Functions[].FunctionName\' | tr -d '\"'"
-	process = subprocess.Popen(cmd,shell=True,stdin=None,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	process = subprocess.Popen(cmd,shell=False, stdin=None,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 	# The output from your shell command
 	
 	result=process.stdout.readlines()
@@ -355,7 +355,7 @@ def downloadFunctions(profile, line, region):
 	print("Downloading code for: " + strFunction)
 	cmd = "aws lambda get-function --region " + region + " --function-name " + strFunction + " --query 'Code.Location' | xargs wget -O ./loot/" + profile + "/" + strFunction + ".zip 2> /dev/null"
 	#print(cmd)
-	call(cmd,shell=True,stdin=None)
+	call(cmd,shell=False, stdin=None)
 	
 	print("Checking Environment Variables for " + strFunction)
 
@@ -368,7 +368,7 @@ def downloadFunctions(profile, line, region):
 	strLootFile = os.path.isfile(filepath)
 			
 	cmd = "aws lambda get-function --region " + region + " --function-name " + strFunction + " --query 'Configuration.Environment.Variables'"
-	process = subprocess.Popen(cmd,shell=True,stdin=None,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	process = subprocess.Popen(cmd,shell=False, stdin=None,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 	result=process.stdout.readlines()
 	
 	if len(result) >= 1:
